@@ -1,0 +1,109 @@
+#: kivy 1.0.9
+
+<PresetButton@Button>:
+	size: 75,75
+	font_size: 18
+
+<InfoButton@Button>:
+	size: 150,50
+	font_size: 30
+	#color: 1,0,0,1
+	
+
+<FmRadio>:
+
+	PresetButton:
+		pos: 175, 50
+		text: 'P1'
+		id: but_preset_1
+
+	PresetButton:
+		pos: 275, 50
+		text: 'P2'
+		id: but_preset_2
+
+	PresetButton:
+		pos: 375, 50
+		text: 'P3'
+		id: but_preset_3
+		
+	PresetButton:
+		pos: 475, 50
+		text: 'P4'
+		id: but_preset_4
+		
+	PresetButton:
+		pos: 575, 50
+		text: 'P5'
+		id: but_preset_5
+
+	PresetButton:
+		pos: 675, 50
+		text: 'P6'
+		id: but_preset_6
+
+    Label:
+        font_size: 40
+        pos: 350,400
+        text: 'FM Radio'
+        id: label_title
+		
+	Label:
+		font_size: 20
+		pos: 350,350
+		text: 'TIME / DATE'
+		id: label_UTC
+	
+	Label: 
+		font_size: 88
+		pos: 400, 200
+		text: '88.5 MHz'
+		id: label_frequency
+
+	InfoButton:
+	    text: 'Seek Up'
+		pos: 50,300
+		id: but_seekUP
+	
+	InfoButton:
+	    text: 'Seek Down'
+		pos: 50,150
+		id: but_seekDN
+	
+
+	
+	
+    Button:
+        text: 'X'
+        font_size: 32
+        color: 1,0,0,1
+        pos: 750, 430
+        size: 50, 50
+        id: but_Exit
+        on_release: root.exit(but_Exit)
+
+    Button:
+        text: 'Connect'
+        size: 100,50
+        pos: 0,0
+        id: but_Connect
+
+
+		
+
+#    Button:
+#        text: 'RPM'
+#        size: 100,100
+#        pos: 700,200
+#        id: but_RPM
+
+
+  #  Label:
+  #      font_size: 12
+  #      pos: 50,50
+  #      text: 'Value 1'
+  #      id: label_val1
+
+ 
+
+	
