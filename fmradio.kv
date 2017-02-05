@@ -61,15 +61,16 @@
 		id: label_frequency
 
 	InfoButton:
-	    text: 'Seek Up'
+		text: 'Seek Up'
 		pos: 50,300
 		id: but_seekUP
+		on_release: root.seekUP()
 	
 	InfoButton:
-	    text: 'Seek Down'
+		text: 'Seek Dn'
 		pos: 50,150
 		id: but_seekDN
-	
+		on_release: root.seekDN()	
 
 	
 	
@@ -87,7 +88,7 @@
         size: 100,50
         pos: 0,0
         id: but_Connect
-
+        on_press: root.connect(but_Connect)
 
 		
 
@@ -102,8 +103,4 @@
   #      font_size: 12
   #      pos: 50,50
   #      text: 'Value 1'
-  #      id: label_val1
-
- 
-
-	
+# id: label_val1
