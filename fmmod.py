@@ -37,7 +37,7 @@ def init_i2c():
 
 def read_reg():
     regdata = bus.read_i2c_block_data(adr,reg.byte[16],32)
-    print "Registers Updated"
+    #print "Registers Updated"		# Debug Statement
     for i in range(32):
         reg.byte[i] = (regdata[i])	
 
@@ -54,27 +54,35 @@ def write_reg():
     ## With i2c_block_write. Offset by one due to command writing to first byte of 
     ## 0x02 register ** No idea why it does this might be smbus mod or the chip
     bus.write_i2c_block_data(adr,reg.byte[16],tx_list)
-    sleep(.5)	# ** Required Delay Otherwise Radio Doesn't Start
+    #sleep(.5)	# ** Required Delay Otherwise Radio Doesn't Start
 
 def setup_osc():
     reg.byte[26] = 0x81
 
-def volume():
-    reg.byte[23] = reg.byte[23] & 0xF0
-    reg.byte[23] = reg.byte[23] | 0x15
+def volume(*args):				#Use *args
+    if (len(args) == 0):
+        reg.byte[23] = reg.byte[23] & 0xF0
+        reg.byte[23] = reg.byte[23] | 0x15
+    elif(args[0] <= 15):
+        reg.byte[23] = reg.byte[23] & 0xF0
+        reg.byte[23] = reg.byte[23] + args[0]
+    else:
+        print "Radio Can't Go To Eleven"
 
 
 def tune(station):
     reg.station = station
     newtune = station*10-875
- #   print hex(int(newtune))
-    #reg.byte[18] = 0x00			## Clear The Tune Bit
+    reg.byte[18] = 0x00			## Clear The Tune Bit
     reg.byte[19] = int(newtune)		## Addin New Frequency
+    reg.byte[16] &= 0xFE		## Clear Set Tune Clear
     write_reg()				## Write To Register
+    read_reg()
     reg.byte[18] = 0x80			## Set Tune Bit High
     write_reg()				## Write To Register
-    #reg.byte[18] = 0x00 		## 0x00 = 87.5 // 0xCD = 108.0
-    #write_reg()
+    reg.byte[18] = 0x40 		## 0x00 = 87.5 // 0xCD = 108.0
+    write_reg()
+    read_reg()
 
 def enable_radio():
     reg.byte[16] = 0x40
@@ -167,12 +175,15 @@ def start():
     read_reg()
     setup_osc()
     write_reg()
+    sleep(.4)		# Let Radio Settle
     read_reg()
     enable_radio()
     write_reg()
+    sleep(.4)		# Let Radio Settle
     read_reg()
     enable_spacing()
     write_reg()
+    sleep(.4)		# Let Radio Settle
     read_reg()
     volume()
     write_reg()
