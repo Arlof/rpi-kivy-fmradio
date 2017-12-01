@@ -79,7 +79,7 @@ class FmRadio(Widget):
         print("Exiting")
         quit(1)
 
-    def connect(self,):
+    def connect(self,btn):
 	self.rad.start()        	
 
     def update_freq(self):
